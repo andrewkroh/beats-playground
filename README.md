@@ -18,7 +18,7 @@ or run it locally if you have Go installed:
 
 ```$xslt
 go get github.com/andrewkroh/beats-playground
-$(go env GOPATH)/beats-playground
+$(go env GOPATH)/bin/beats-playground
 ```
 
 Then open the browser to http://localhost:8084.
