@@ -44,6 +44,8 @@ import (
 
 var (
 	bindAddress string
+
+	version = "UNSET"
 )
 
 func init() {
@@ -62,6 +64,7 @@ func main() {
 	// Serve embedded assets.
 	mux.Handle("/", http.FileServer(&assetfs.AssetFS{Asset: Asset, AssetDir: AssetDir, Prefix: ""}))
 
+	log.Println("beats-playground version", version)
 	log.Println("Listening at:", bindAddress)
 	log.Fatal(http.ListenAndServe(bindAddress, LoggingHandler(mux)))
 }
