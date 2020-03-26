@@ -184,8 +184,12 @@ func (executeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			continue
 		}
 
-		event.Fields.Put("@timestamp", common.Time(event.Timestamp))
-		item.Event = event.Fields
+		// Drop event processors can return null.
+		if event != nil {
+			event.Fields.Put("@timestamp", common.Time(event.Timestamp))
+			item.Event = event.Fields
+		}
+
 		response.Events = append(response.Events, item)
 	}
 	if err = s.Err(); err != nil {
