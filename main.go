@@ -187,6 +187,9 @@ func (executeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		// Drop event processors can return null.
 		if event != nil {
 			event.Fields.Put("@timestamp", common.Time(event.Timestamp))
+			if len(event.Meta) > 0 {
+				event.Fields.DeepUpdate(common.MapStr{"@metadata": event.Meta})
+			}
 			item.Event = event.Fields
 		}
 
