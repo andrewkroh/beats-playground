@@ -1,6 +1,9 @@
+VERSION ?= master
+LICENSE := ASL2-Short
+
 .PHONY: build
-build: ui-assets
-	go build
+build: fmt wasm ui-assets
+	go build -ldflags "-X main.version=${VERSION}"
 
 .PHONY: start
 start:
@@ -9,9 +12,28 @@ start:
 
 .PHONY: ui
 ui:
-	cd web; yarn build
+	cd ui; yarn build
 
 .PHONY: ui-assets
 ui-assets: ui
-	cd web/build; go-bindata-assetfs -pkg main -o ../../ui_assets.go ./...
+	cd ui/build; go-bindata-assetfs -pkg main -o ../../ui_assets.go ./...
 	goimports -l -w ui_assets.go
+
+.PHONY: wasm
+wasm:
+	mkdir -p build
+	GOOS=js GOARCH=wasm go build -o ui/public/processors.wasm -ldflags "-X main.version=${VERSION}" ./pkg/wasm
+	cp "$(shell go env GOROOT)/misc/wasm/wasm_exec.js" ui/public/
+
+.PHONY: fmt
+fmt: go-licenser goimports
+	go-licenser -license ${LICENSE}
+	goimports -w -local github.com/andrewkroh/ .
+
+.PHONY: goimports
+goimports:
+	GO111MODULE=off go get golang.org/x/tools/cmd/goimports
+
+.PHONY: go-licenser
+go-licenser:
+	GO111MODULE=off go get github.com/elastic/go-licenser
