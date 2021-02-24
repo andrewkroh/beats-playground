@@ -1,4 +1,5 @@
-VERSION ?= 0.1.0-SNAPSHOT
+VERSION ?= master
+LICENSE := ASL2-Short
 
 .PHONY: build
 build: fmt wasm ui-assets
@@ -25,6 +26,14 @@ wasm:
 	cp "$(shell go env GOROOT)/misc/wasm/wasm_exec.js" ui/public/
 
 .PHONY: fmt
-fmt:
-	GO111MODULE=off go get golang.org/x/tools/cmd/goimports
+fmt: go-licenser goimports
+	go-licenser -license ${LICENSE}
 	goimports -w -local github.com/andrewkroh/ .
+
+.PHONY: goimports
+goimports:
+	GO111MODULE=off go get golang.org/x/tools/cmd/goimports
+
+.PHONY: go-licenser
+go-licenser:
+	GO111MODULE=off go get github.com/elastic/go-licenser
