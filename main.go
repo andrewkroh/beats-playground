@@ -13,6 +13,7 @@ import (
 	assetfs "github.com/elazarl/go-bindata-assetfs"
 	"github.com/rs/cors"
 	"gopkg.in/yaml.v2"
+	"github.com/gorilla/handlers"
 
 	"github.com/elastic/beats/v7/libbeat/beat"
 	"github.com/elastic/beats/v7/libbeat/common"
@@ -67,7 +68,7 @@ func main() {
 
 	log.Println("beats-playground version", version)
 	log.Println("Listening at:", bindAddress)
-	log.Fatal(http.ListenAndServe(bindAddress, LoggingHandler(mux)))
+	log.Fatal(http.ListenAndServe(bindAddress, LoggingHandler(handlers.CompressHandler(mux))))
 }
 
 func LoggingHandler(next http.Handler) http.Handler {

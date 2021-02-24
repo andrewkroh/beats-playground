@@ -1,5 +1,5 @@
 .PHONY: build
-build: ui-assets
+build: wasm ui-assets
 	go build
 
 .PHONY: start
@@ -9,9 +9,14 @@ start:
 
 .PHONY: ui
 ui:
-	cd web; yarn build
+	cd ui; yarn build
 
 .PHONY: ui-assets
 ui-assets: ui
-	cd web/build; go-bindata-assetfs -pkg main -o ../../ui_assets.go ./...
+	cd ui/build; go-bindata-assetfs -pkg main -o ../../ui_assets.go ./...
 	goimports -l -w ui_assets.go
+
+wasm:
+	mkdir -p build
+	GOOS=js GOARCH=wasm go build -o ui/public/processors.wasm ./pkg/wasm
+	cp "$(shell go env GOROOT)/misc/wasm/wasm_exec.js" ui/public/
