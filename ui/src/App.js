@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import axios from 'axios';
 import './App.css';
 
 import {
@@ -82,35 +81,6 @@ export default class extends Component {
         this.setState({
             output: JSON.stringify(events, null, 2)
         });
-
-        // const url = '/api/execute';
-        // const request = {
-        //     url: url,
-        //     method: 'post',
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     data: { processors: this.state.processors, events: this.state.logs } };
-        // axios(request)
-        //     .then(res => {
-        //         const events = res.data.events.map(x => {
-        //             if (x.error) {
-        //                 this.setState({ hasError: true })
-        //                 return x.error;
-        //             }
-        //             this.setState({ hasError: false })
-        //             return x.event;
-        //         });
-        //         this.setState({
-        //             output: JSON.stringify(events, null, 2)
-        //         });
-        //     })
-        //     .catch(error => {
-        //         this.setState({
-        //             hasError: true,
-        //             output: error.response.data
-        //         });
-        //     });
     };
 
     render() {
