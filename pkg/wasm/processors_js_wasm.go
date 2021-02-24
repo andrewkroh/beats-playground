@@ -29,6 +29,8 @@ import (
 	_ "github.com/elastic/beats/v7/libbeat/processors/urldecode"
 )
 
+var version string
+
 func execute(this js.Value, args []js.Value) interface{} {
 	if len(args) != 2 {
 		return "execute requires two args"
@@ -68,7 +70,7 @@ func registerCallbacks() {
 }
 
 func main() {
-	println("Beats Processor Playground WASM loaded.")
+	println("Beats Processor Playground WASM loaded. Version " + version)
 	registerCallbacks()
 	<-make(chan bool)
 }
