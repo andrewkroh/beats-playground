@@ -12,7 +12,7 @@ start:
 
 .PHONY: ui
 ui:
-	cd ui; yarn build
+	cd ui; yarn install && yarn build
 
 .PHONY: ui-assets
 ui-assets: ui
@@ -40,4 +40,4 @@ go-licenser:
 
 .PHONY: gh-pages
 gh-pages: wasm
-	cd ui; yarn run deploy
+	cd ui; yarn install && yarn run deploy

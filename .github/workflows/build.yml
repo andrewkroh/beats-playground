@@ -44,7 +44,7 @@ jobs:
         run: go test ./...
 
       - name: build
-        run: make build
+        run: VERSION=${{ github.sha }} make build
 
       - name: install gox
         env:
