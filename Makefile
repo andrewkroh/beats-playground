@@ -12,10 +12,10 @@ start:
 
 .PHONY: ui
 ui:
-	cd ui; yarn build
+	cd ui; yarn install && yarn build
 
 .PHONY: ui-assets
-ui-assets: ui
+ui-assets: ui go-bindata-assetfs goimports
 	cd ui/build; go-bindata-assetfs -pkg main -o ../../ui_assets.go ./...
 	goimports -l -w ui_assets.go
 
@@ -38,6 +38,14 @@ goimports:
 go-licenser:
 	GO111MODULE=off go get github.com/elastic/go-licenser
 
+.PHONY: go-bindata-assetfs
+go-bindata-assetfs: go-bindata
+	GO111MODULE=off go get github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs
+
+.PHONY: go-bindata
+go-bindata:
+	GO111MODULE=off go get github.com/go-bindata/go-bindata/go-bindata
+
 .PHONY: gh-pages
 gh-pages: wasm
-	cd ui; yarn run deploy
+	cd ui; yarn install && yarn run deploy

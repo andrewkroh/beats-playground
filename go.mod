@@ -6,18 +6,14 @@ require (
 	github.com/dlclark/regexp2 v1.2.0 // indirect
 	github.com/dop251/goja_nodejs v0.0.0-20200706082813-b2775b86b9e0 // indirect
 	github.com/elastic/beats/v7 v7.0.0-alpha2.0.20200805104247-2ee3f8392417
-	github.com/elastic/go-ucfg v0.8.3
 	github.com/elazarl/go-bindata-assetfs v1.0.1
 	github.com/go-sourcemap/sourcemap v2.1.3+incompatible // indirect
 	github.com/gorilla/handlers v1.5.1
 	github.com/mattn/go-colorable v0.1.7 // indirect
-	github.com/mitchellh/hashstructure v1.0.0 // indirect
 	github.com/prometheus/procfs v0.1.3 // indirect
-	github.com/rs/cors v1.7.0
 	github.com/stretchr/testify v1.6.1
 	go.uber.org/zap v1.15.0 // indirect
 	golang.org/x/lint v0.0.0-20200302205851-738671d3881b // indirect
-	gopkg.in/yaml.v2 v2.3.0
 	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
 	honnef.co/go/tools v0.0.1-2020.1.5 // indirect
 	howett.net/plist v0.0.0-20200419221736-3b63eb3a43b5 // indirect

@@ -29,7 +29,7 @@ const defaultProcessors = `- dissect:
 
 const defaultLogs = '[2018-12-14T05:35:38.313Z] I santad: action=EXEC|decision=ALLOW|reason=UNKNOWN|sha256=a8defc1b24c45f6dabeb8298af5f8e1daf39e1504e16f878345f15ac94ae96d7|path=';
 
-export default class extends Component {
+export default class BeatsPlayground extends Component {
     constructor(props) {
         super(props);
 
