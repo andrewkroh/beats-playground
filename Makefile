@@ -40,7 +40,7 @@ go-licenser:
 
 .PHONY: go-bindata-assetfs
 go-bindata-assetfs:
-	GO111MODULE=off go get github.com/elazarl/go-bindata-assetfs
+	GO111MODULE=off go get github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs
 
 .PHONY: gh-pages
 gh-pages: wasm
