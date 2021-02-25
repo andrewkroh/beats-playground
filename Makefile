@@ -37,3 +37,7 @@ goimports:
 .PHONY: go-licenser
 go-licenser:
 	GO111MODULE=off go get github.com/elastic/go-licenser
+
+.PHONY: gh-pages
+gh-pages: wasm
+	cd ui; yarn run deploy
