@@ -40,11 +40,11 @@ jobs:
           go mod tidy
           git diff-index --quiet HEAD
 
-      - name: go test
-        run: go test ./...
-
       - name: build
         run: VERSION=${{ github.sha }} make build
+
+      - name: go test
+        run: go test ./...
 
       - name: publish gh-pages
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
