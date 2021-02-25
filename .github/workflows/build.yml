@@ -1,0 +1,59 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@master
+
+      - name: set up Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.15
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+
+      - name: check fmt
+        shell: bash
+        run: |
+          make fmt
+          git diff-index --quiet HEAD
+
+      - name: check go.mod
+        shell: bash
+        run: |
+          go mod tidy
+          git diff-index --quiet HEAD
+
+      - name: go test
+        run: go test ./...
+
+      - name: build
+        run: make build
+
+      - name: install gox
+        env:
+          GO111MODULE: off
+        run: go get github.com/mitchellh/gox
+
+      - name: cross build
+        shell: bash
+        run: |
+          export PATH=$PATH:$(go env GOPATH)/bin
+          mkdir -p build/bin
+          gox -ldflags '-X main.version=${{ github.sha }}' \
+              -output='build/bin/{{.Dir}}-{{.OS}}-{{.Arch}}' \
+              -os='windows linux darwin' \
+              -arch='amd64 386 arm arm64' \
+              -osarch='!darwin/386 !darwin/arm !darwin/arm64' .
