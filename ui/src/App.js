@@ -85,6 +85,8 @@ export default class BeatsPlayground extends Component {
         if (loadProcessorsUrl) {
             const request = {
                 url: loadProcessorsUrl,
+                responseType: 'text',
+                transformResponse: [],
                 method: 'get'
             };
 
@@ -106,6 +108,8 @@ export default class BeatsPlayground extends Component {
         if (loadLogsUrl) {
             const request = {
                 url: loadLogsUrl,
+                responseType: 'text',
+                transformResponse: [],
                 method: 'get'
             };
 
