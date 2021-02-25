@@ -11,7 +11,7 @@ start:
 	go run .
 
 .PHONY: ui
-ui:
+ui: wasm
 	cd ui; yarn install && yarn build
 
 .PHONY: ui-assets
@@ -21,7 +21,6 @@ ui-assets: ui go-bindata-assetfs goimports
 
 .PHONY: wasm
 wasm:
-	mkdir -p build
 	GOOS=js GOARCH=wasm go build -o ui/public/processors.wasm -ldflags "-X main.version=${VERSION}" ./pkg/wasm
 	cp "$(shell go env GOROOT)/misc/wasm/wasm_exec.js" ui/public/
 
