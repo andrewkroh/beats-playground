@@ -31,6 +31,7 @@ import (
 	_ "github.com/elastic/beats/v7/libbeat/processors/timestamp"
 	_ "github.com/elastic/beats/v7/libbeat/processors/translate_sid"
 	_ "github.com/elastic/beats/v7/libbeat/processors/urldecode"
+	_ "github.com/elastic/beats/v7/x-pack/filebeat/processors/decode_cef"
 )
 
 var version string
