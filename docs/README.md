@@ -12,6 +12,10 @@ I reused the processors code Elastic Beats and compiled it into a WebAssembly
 binary that is loaded by the browser. All processing happens in the browser so
 none of your sample/test logs ever leave the browser.
 
+Because of browser limitations, processors that require OS resources
+(filesystem, sockets) are not included (e.g. `dns`, `translate_sid`,
+`rate_limit`, `add_docker_metdata`).
+
 ## Self-hosting
 
 Download a release binary and run it yourself. By default the binary listens
