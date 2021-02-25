@@ -20,6 +20,10 @@ jobs:
         with:
           go-version: 1.15
 
+      - name: add GOPATH/bin to PATH
+        run: |
+          echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
+
       - uses: actions/setup-node@v2
         with:
           node-version: '12'
