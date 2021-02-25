@@ -47,5 +47,9 @@ jobs:
         run: VERSION=${{ github.sha }} make build
 
       - name: publish gh-pages
-        run: VERSION=${{ github.sha }} make gh-pages
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        run: |
+          git config user.name "Github Actions"
+          git config user.email "actions@github.com"
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          VERSION=${{ github.sha }} make gh-pages

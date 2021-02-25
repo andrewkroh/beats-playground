@@ -1,4 +1,4 @@
-== Beats Playground
+# Beats Playground
 
 Demo: https://andrewkroh.github.io/beats-playground/
 
@@ -21,3 +21,10 @@ for connections at http://localhost:8084/.
 
 Run `make` and it will produce the `beats-playground` self-contained binary.
 Building have several requirements like Go and `yarn`.
+
+## Releasing
+
+Pushes to master automatically update the demo page host by Github Pages. The
+commit ID can be verified by looking at the browser's console.
+
+Git tags automatically trigger uploads of binaries to the Github release page.
