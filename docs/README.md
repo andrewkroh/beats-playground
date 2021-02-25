@@ -20,7 +20,7 @@ for connections at http://localhost:8084/.
 ## Building
 
 Run `make` and it will produce the `beats-playground` self-contained binary.
-Building have several requirements like Go and `yarn`.
+Building has several requirements like Go and `yarn`.
 
 ## Releasing
 
