@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 import './App.css';
 
 import {
@@ -29,6 +30,25 @@ const defaultProcessors = `- dissect:
 
 const defaultLogs = '[2018-12-14T05:35:38.313Z] I santad: action=EXEC|decision=ALLOW|reason=UNKNOWN|sha256=a8defc1b24c45f6dabeb8298af5f8e1daf39e1504e16f878345f15ac94ae96d7|path=';
 
+function getQueryVariable(input, variable) {
+    var query = input.substring(input.indexOf("?")+1);
+    var vars = query.split('&');
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        if (decodeURIComponent(pair[0]) === variable) {
+            return decodeURIComponent(pair[1]);
+        }
+    }
+}
+
+function getLoadProcessors() {
+    return getQueryVariable(window.location.hash, "load_processors");
+}
+
+function getLoadLogs() {
+    return getQueryVariable(window.location.hash, "load_logs");
+}
+
 export default class BeatsPlayground extends Component {
     constructor(props) {
         super(props);
@@ -50,6 +70,59 @@ export default class BeatsPlayground extends Component {
             hasError: false,
         };
     }
+
+    componentDidMount() {
+        this.handleHashChange()
+        window.addEventListener("hashchange", this.handleHashChange, false);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("hashchange", this.handleHashChange, false);
+    }
+
+    handleHashChange = () => {
+        const loadProcessorsUrl = getLoadProcessors();
+        if (loadProcessorsUrl) {
+            const request = {
+                url: loadProcessorsUrl,
+                method: 'get'
+            };
+
+            axios(request)
+                .then(res => {
+                    this.setState({
+                        processors: res.data,
+                    });
+                })
+                .catch(error => {
+                    this.setState({
+                        hasError: true,
+                        output: error.response.data
+                    });
+                });
+        }
+
+        const loadLogsUrl = getLoadLogs();
+        if (loadLogsUrl) {
+            const request = {
+                url: loadLogsUrl,
+                method: 'get'
+            };
+
+            axios(request)
+                .then(res => {
+                    this.setState({
+                        logs: res.data,
+                    });
+                })
+                .catch(error => {
+                    this.setState({
+                        hasError: true,
+                        output: error.response.data
+                    });
+                });
+        }
+    };
 
     onChange = (e) => {
         this.setState({

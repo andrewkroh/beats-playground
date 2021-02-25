@@ -16,6 +16,13 @@ Because of browser limitations, processors that require OS resources
 (filesystem, sockets) are not included (e.g. `dns`, `translate_sid`,
 `rate_limit`, `add_docker_metdata`).
 
+It will load configurations and sample logs from URLs if you set the appropriate
+query parameters in the URL fragment (aka hash). It reads `load_processors`
+and `load_logs` then loads the content from those URLs. This can be used to share
+examples. The format is:
+
+`http://localhost:8084/#?load_processors=PROCESSORS_URL&load_logs=LOGS_URL`
+
 ## Self-hosting
 
 Download a release binary and run it yourself. By default the binary listens
