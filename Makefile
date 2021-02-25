@@ -44,7 +44,7 @@ go-bindata-assetfs: go-bindata
 
 .PHONY: go-bindata
 go-bindata:
-	GO111MODULE=off go get github.com/go-bindata/go-bindata
+	GO111MODULE=off go get github.com/go-bindata/go-bindata/go-bindata
 
 .PHONY: gh-pages
 gh-pages: wasm
