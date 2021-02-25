@@ -1,24 +1,23 @@
-**Proof of Concept**
+== Beats Playground
+
+Demo: https://andrewkroh.github.io/beats-playground/
 
 It's a web UI to play with Elastic Beats processor configurations.
 
 ![screenshot](screenshot.png)
 
-## Give it a try
+## How it works
 
-Run it in Docker
+I reused the processors code Elastic Beats and compiled it into a WebAssembly
+binary that is loaded by the browser. All processing happens in the browser so
+none of your sample/test logs ever leave the browser.
 
-```
-docker run -it --rm -p 8084:8084 golang:1.13.8
-go get github.com/andrewkroh/beats-playground
-beats-playground -http=":8084"
-```
+## Self-hosting
 
-or run it locally if you have Go installed:
+Download a release binary and run it yourself. By default the binary listens
+for connections at http://localhost:8084/.
 
-```$xslt
-go get github.com/andrewkroh/beats-playground
-$(go env GOPATH)/bin/beats-playground
-```
+## Building
 
-Then open the browser to http://localhost:8084.
+Run `make` and it will produce the `beats-playground` self-contained binary.
+Building have several requirements like Go and `yarn`.

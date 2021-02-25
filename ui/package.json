@@ -20,7 +20,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "PUBLIC_URL=https://andrewkroh.github.io/beats-playground/ yarn build",
-    "deploy": "gh-pages -d build --repo https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+    "deploy": "gh-pages -d build --repo https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git --user 'Gitub Actions <ci@github.com>'"
   },
   "eslintConfig": {
     "extends": "react-app"
