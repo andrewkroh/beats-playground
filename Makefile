@@ -15,7 +15,7 @@ ui:
 	cd ui; yarn install && yarn build
 
 .PHONY: ui-assets
-ui-assets: ui
+ui-assets: ui go-bindata-assetfs goimports
 	cd ui/build; go-bindata-assetfs -pkg main -o ../../ui_assets.go ./...
 	goimports -l -w ui_assets.go
 
@@ -37,6 +37,10 @@ goimports:
 .PHONY: go-licenser
 go-licenser:
 	GO111MODULE=off go get github.com/elastic/go-licenser
+
+.PHONY: go-bindata-assetfs
+go-bindata-assetfs:
+	GO111MODULE=off go get github.com/elazarl/go-bindata-assetfs
 
 .PHONY: gh-pages
 gh-pages: wasm
