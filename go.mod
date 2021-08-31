@@ -1,6 +1,6 @@
 module github.com/andrewkroh/beats-playground
 
-go 1.15
+go 1.16
 
 require (
 	github.com/dlclark/regexp2 v1.2.0 // indirect
@@ -25,7 +25,7 @@ replace (
 	github.com/docker/docker => github.com/docker/engine v0.0.0-20191113042239-ea84732a7725
 	github.com/docker/go-plugins-helpers => github.com/elastic/go-plugins-helpers v0.0.0-20200207104224-bdf17607b79f
 	github.com/dop251/goja => github.com/andrewkroh/goja v0.0.0-20190128172624-dd2ac4456e20
-	github.com/elastic/beats/v7 => github.com/andrewkroh/beats/v7 v7.0.0-20210421224214-5922a0cced79
+	github.com/elastic/beats/v7 => github.com/andrewkroh/beats/v7 v7.0.0-20210831223229-9003f8f8b0cb
 	github.com/fsnotify/fsevents => github.com/elastic/fsevents v0.0.0-20181029231046-e1d381a4d270
 	github.com/fsnotify/fsnotify => github.com/adriansr/fsnotify v0.0.0-20180417234312-c9bbe1f46f1d
 	github.com/insomniacslk/dhcp => github.com/elastic/dhcp v0.0.0-20200227161230-57ec251c7eb3 // indirect
