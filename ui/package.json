@@ -4,7 +4,8 @@
   "private": true,
   "dependencies": {
     "@elastic/datemath": "^5.0.3",
-    "@elastic/eui": "^31.8.0",
+    "@elastic/eui": "^42.0.0",
+    "@emotion/react": "^11.7.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -13,7 +14,8 @@
     "moment": "^2.29.1",
     "react": "^16.12",
     "react-dom": "^16.12",
-    "react-scripts": "4.0.3"
+    "react-scripts": "4.0.3",
+    "trim": "0.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
