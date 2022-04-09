@@ -10,7 +10,7 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.21.2",
     "levenary": "1.1.1",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "react": "^16.12",
     "react-dom": "^16.12",
     "react-scripts": "4.0.3"
