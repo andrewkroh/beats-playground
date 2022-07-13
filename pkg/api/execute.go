@@ -11,10 +11,13 @@ import (
 	"strings"
 	"time"
 
+	"gopkg.in/yaml.v3"
+
 	"github.com/elastic/beats/v7/libbeat/beat"
 	"github.com/elastic/beats/v7/libbeat/common"
 	"github.com/elastic/beats/v7/libbeat/processors"
-	"gopkg.in/yaml.v3"
+	"github.com/elastic/elastic-agent-libs/config"
+	"github.com/elastic/elastic-agent-libs/mapstr"
 )
 
 type ExecuteRequest struct {
@@ -52,7 +55,7 @@ func Execute(req ExecuteRequest) (*ExecuteResponse, error) {
 
 		event := &beat.Event{
 			Timestamp: time.Now().UTC(),
-			Fields: common.MapStr{
+			Fields: mapstr.M{
 				"message": s.Text(),
 			},
 		}
@@ -72,7 +75,7 @@ func Execute(req ExecuteRequest) (*ExecuteResponse, error) {
 		if event != nil {
 			event.Fields.Put("@timestamp", common.Time(event.Timestamp))
 			if len(event.Meta) > 0 {
-				event.Fields.DeepUpdate(common.MapStr{"@metadata": event.Meta})
+				event.Fields.DeepUpdate(mapstr.M{"@metadata": event.Meta})
 			}
 			item.Event = event.Fields
 		}
@@ -123,7 +126,7 @@ func (req ExecuteRequest) buildProcessors() (*processors.Processors, error) {
 		return nil, err
 	}
 
-	c, err := common.NewConfigFrom(processorsIfcList)
+	c, err := config.NewConfigFrom(processorsIfcList)
 	if err != nil {
 		return nil, err
 	}
