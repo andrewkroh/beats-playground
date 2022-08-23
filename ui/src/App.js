@@ -4,10 +4,14 @@ import './App.css';
 
 import {
     EuiButton,
+    EuiButtonGroup,
     EuiCodeEditor,
+    EuiFieldNumber,
+    EuiFieldText,
     EuiFlexGroup,
     EuiFlexItem,
     EuiFormRow,
+    EuiHorizontalRule,
     EuiLink,
     EuiPage,
     EuiPageBody,
@@ -15,6 +19,7 @@ import {
     EuiPageContentBody,
     EuiPageHeader,
     EuiPageHeaderSection,
+    EuiSwitch,
     EuiText,
     EuiTextArea,
     EuiTitle,
@@ -66,6 +71,11 @@ export default class BeatsPlayground extends Component {
         this.state = {
             processors: savedProcessors,
             logs: savedLogs,
+            multiline_enabled: false,
+            multiline_negate: false,
+            multiline_skip_newline: false,
+            multiline_type: 'pattern',
+            multiline_pattern: '',
             output: '',
             hasError: false,
         };
@@ -210,6 +220,69 @@ export default class BeatsPlayground extends Component {
                                                 value={this.state.logs}
                                                 onChange={this.onChange}
                                                 fullWidth
+                                            />
+                                        </EuiFormRow>
+
+                                        <EuiHorizontalRule />
+
+                                        <EuiFormRow label="Multiline">
+                                            <EuiSwitch
+                                                name="multiline_enabled"
+                                                label="Enabled"
+                                                checked={this.state.multiline_enabled}
+                                                onChange={this.onChange}
+                                            />
+                                        </EuiFormRow>
+
+                                        <EuiFormRow label="Multiline Type">
+                                            <EuiButtonGroup
+                                                id="multiline_type"
+                                                legend="Multiline type"
+                                                options={[
+                                                    { id: 'option_one', label: 'Pattern' },
+                                                    { id: 'option_two', label: 'Count' },
+                                                    { id: 'option_three', label: 'While Pattern' },
+                                                ]}
+                                                idSelected={this.state.multiline_type}
+                                                onChange={this.onChange}
+                                                buttonSize="compressed"
+                                                isFullWidth
+                                            />
+                                        </EuiFormRow>
+
+                                        <EuiFormRow label="Negate pattern">
+                                            <EuiSwitch
+                                                name="multiline_negate"
+                                                label="Negate"
+                                                checked={this.state.multiline_negate}
+                                                onChange={this.onChange}
+                                            />
+                                        </EuiFormRow>
+
+                                        <EuiFormRow label="Multiline pattern">
+                                            <EuiFieldText
+                                                name="multiline_pattern"
+                                                value={this.state.multiline_pattern}
+                                                onChange={this.onChange}
+                                                compressed
+                                            />
+                                        </EuiFormRow>
+
+                                        <EuiFormRow label="Line count">
+                                            <EuiFieldNumber
+                                                name="multiline_line_count"
+                                                placeholder={0}
+                                                value={this.state.multiline_line_count}
+                                                onChange={this.onChange}
+                                            />
+                                        </EuiFormRow>
+
+                                        <EuiFormRow label="Skip newline">
+                                            <EuiSwitch
+                                                name="multiline_skip_newline"
+                                                label="Enabled"
+                                                checked={this.state.multiline_skip_newline}
+                                                onChange={this.onChange}
                                             />
                                         </EuiFormRow>
 

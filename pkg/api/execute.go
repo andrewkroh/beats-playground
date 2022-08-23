@@ -8,6 +8,7 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
+	"io"
 	"strings"
 	"time"
 
@@ -15,14 +16,28 @@ import (
 
 	"github.com/elastic/beats/v7/libbeat/beat"
 	"github.com/elastic/beats/v7/libbeat/common"
+	"github.com/elastic/beats/v7/libbeat/common/match"
 	"github.com/elastic/beats/v7/libbeat/processors"
+	"github.com/elastic/beats/v7/libbeat/reader"
+	"github.com/elastic/beats/v7/libbeat/reader/multiline"
 	"github.com/elastic/elastic-agent-libs/config"
 	"github.com/elastic/elastic-agent-libs/mapstr"
 )
 
 type ExecuteRequest struct {
-	Processors interface{} `json:"processors"` // YAML block with processors config.
-	Events     string      `json:"events"`     // Newline delimited list of messages.
+	Processors interface{}       `json:"processors"`          // YAML block with processors config.
+	Events     string            `json:"events"`              // Newline delimited list of messages.
+	Multiline  *MultilineOptions `json:"multiline,omitempty"` // Multiline configuration (optional).
+}
+
+type MultilineOptions struct {
+	Type         string `json:"type"`              // Type: pattern (default), count, or while_pattern.
+	Negate       bool   `json:"negate"`            // Invert match result.
+	Match        string `json:"match,omitempty"`   // Match 'before' or 'after'.
+	Pattern      string `json:"pattern,omitempty"` // Regular expression pattern.
+	FlushPattern string `json:"flush_pattern,omitempty"`
+	LinesCount   int    `json:"count_lines,omitempty"`
+	SkipNewLine  bool   `config:"skip_newline,omitempty"`
 }
 
 type ExecuteResponse struct {
@@ -41,26 +56,59 @@ func Execute(req ExecuteRequest) (*ExecuteResponse, error) {
 		return nil, err
 	}
 
-	var resp ExecuteResponse
-	s := bufio.NewScanner(bytes.NewBufferString(req.Events))
-	for s.Scan() {
-		message := s.Text()
-		if message == "" {
-			continue
+	var r reader.Reader = newBufferReader(bytes.NewBufferString(req.Events))
+
+	if req.Multiline != nil {
+		var pattern, flushPattern *match.Matcher
+		if req.Multiline.Pattern != "" {
+			p, err := match.Compile(req.Multiline.Pattern)
+			if err != nil {
+				return nil, err
+			}
+			pattern = &p
+		}
+		if req.Multiline.FlushPattern != "" {
+			p, err := match.Compile(req.Multiline.FlushPattern)
+			if err != nil {
+				return nil, err
+			}
+			flushPattern = &p
 		}
 
+		r, err = multiline.New(r, "\n", 4096, &multiline.Config{
+			Type:         0, // TODO: Convert to unexported multilineType.
+			Negate:       req.Multiline.Negate,
+			Match:        req.Multiline.Match,
+			Pattern:      pattern,
+			FlushPattern: flushPattern,
+			LinesCount:   req.Multiline.LinesCount,
+			SkipNewLine:  req.Multiline.SkipNewLine,
+		})
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	var resp ExecuteResponse
+	for {
+		m, err := r.Next()
+		if err != nil {
+			break
+		}
+
+		message := string(m.Content)
 		item := ExecuteResponseEvent{
 			Original: message,
 		}
 
 		event := &beat.Event{
-			Timestamp: time.Now().UTC(),
+			Timestamp: m.Ts,
 			Fields: mapstr.M{
-				"message": s.Text(),
+				"message": string(m.Content),
 			},
 		}
 
-		event, err := procs.Run(event)
+		event, err = procs.Run(event)
 		if err != nil {
 			if event != nil {
 				event.Fields.Put("@timestamp", common.Time(event.Timestamp))
@@ -81,9 +129,6 @@ func Execute(req ExecuteRequest) (*ExecuteResponse, error) {
 		}
 
 		resp.Events = append(resp.Events, item)
-	}
-	if err = s.Err(); err != nil {
-		return nil, err
 	}
 
 	return &resp, nil
@@ -142,4 +187,33 @@ func (req ExecuteRequest) buildProcessors() (*processors.Processors, error) {
 	}
 
 	return procs, nil
+}
+
+type bufferReader struct {
+	scanner *bufio.Scanner
+}
+
+var _ reader.Reader = (*bufferReader)(nil)
+
+func newBufferReader(r io.Reader) *bufferReader {
+	return &bufferReader{scanner: bufio.NewScanner(r)}
+}
+
+func (b *bufferReader) Close() error {
+	return nil
+}
+
+// Next reads from the buffer line by line.
+func (b *bufferReader) Next() (reader.Message, error) {
+	if b.scanner.Scan() {
+		return reader.Message{
+			Ts:      time.Now().UTC(),
+			Content: b.scanner.Bytes(),
+			Bytes:   len(b.scanner.Bytes()),
+		}, nil
+	} else if b.scanner.Err() != nil {
+		return reader.Message{}, b.scanner.Err()
+	}
+
+	return reader.Message{}, io.EOF
 }

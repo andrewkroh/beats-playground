@@ -7,6 +7,7 @@ package api
 import (
 	"testing"
 
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
 	// Register a processor for testing.
@@ -98,5 +99,29 @@ hello world 2`,
 		require.NoError(t, err)
 		require.NotNil(t, resp)
 		require.Len(t, resp.Events, 2)
+	})
+
+	t.Run("multi-line messages", func(t *testing.T) {
+		req := ExecuteRequest{
+			Processors: `[]`,
+			Multiline: &MultilineOptions{
+				Type:    "pattern",
+				Negate:  true,
+				Match:   "after",
+				Pattern: "^{",
+			},
+			Events: `{
+"hello": "world"
+}
+{ Next incomplete`,
+		}
+
+		resp, err := Execute(req)
+		require.NoError(t, err)
+		require.NotNil(t, resp)
+		require.Len(t, resp.Events, 2)
+
+		assert.Equal(t, "{\n\"hello\": \"world\"\n}", resp.Events[0].Event["message"])
+		assert.Equal(t, "{ Next incomplete", resp.Events[1].Event["message"])
 	})
 }
