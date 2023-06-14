@@ -31,19 +31,19 @@ fmt: go-licenser goimports
 
 .PHONY: goimports
 goimports:
-	GO111MODULE=off go get golang.org/x/tools/cmd/goimports
+	go install golang.org/x/tools/cmd/goimports@latest
 
 .PHONY: go-licenser
 go-licenser:
-	GO111MODULE=off go get github.com/elastic/go-licenser
+	go install github.com/elastic/go-licenser@latest
 
 .PHONY: go-bindata-assetfs
 go-bindata-assetfs: go-bindata
-	GO111MODULE=off go get github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs
+	go install github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs@latest
 
 .PHONY: go-bindata
 go-bindata:
-	GO111MODULE=off go get github.com/go-bindata/go-bindata/go-bindata
+	go install github.com/go-bindata/go-bindata/go-bindata@latest
 
 .PHONY: gh-pages
 gh-pages: wasm
