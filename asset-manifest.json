@@ -813,8 +813,8 @@
     "icon.wrench-js.js": "https://andrewkroh.github.io/beats-playground/static/js/icon.wrench-js.6bb0e3db.chunk.js",
     "icon.wrench-js.js.map": "https://andrewkroh.github.io/beats-playground/static/js/icon.wrench-js.6bb0e3db.chunk.js.map",
     "main.css": "https://andrewkroh.github.io/beats-playground/static/css/main.6dba080f.chunk.css",
-    "main.js": "https://andrewkroh.github.io/beats-playground/static/js/main.8bf7bb52.chunk.js",
-    "main.js.map": "https://andrewkroh.github.io/beats-playground/static/js/main.8bf7bb52.chunk.js.map",
+    "main.js": "https://andrewkroh.github.io/beats-playground/static/js/main.44e6fccd.chunk.js",
+    "main.js.map": "https://andrewkroh.github.io/beats-playground/static/js/main.44e6fccd.chunk.js.map",
     "runtime-main.js": "https://andrewkroh.github.io/beats-playground/static/js/runtime-main.70e6c4b8.js",
     "runtime-main.js.map": "https://andrewkroh.github.io/beats-playground/static/js/runtime-main.70e6c4b8.js.map",
     "static/css/408.9ce9f887.chunk.css": "https://andrewkroh.github.io/beats-playground/static/css/408.9ce9f887.chunk.css",
@@ -830,6 +830,6 @@
     "static/css/408.9ce9f887.chunk.css",
     "static/js/408.9ee27afc.chunk.js",
     "static/css/main.6dba080f.chunk.css",
-    "static/js/main.8bf7bb52.chunk.js"
+    "static/js/main.44e6fccd.chunk.js"
   ]
 }
