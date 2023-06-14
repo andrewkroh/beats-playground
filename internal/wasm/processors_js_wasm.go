@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"syscall/js"
 
-	"github.com/andrewkroh/beats-playground/pkg/api"
+	"github.com/andrewkroh/beats-playground/internal/api"
 
 	// Register processors.
 	_ "github.com/elastic/beats/v7/libbeat/processors/actions"

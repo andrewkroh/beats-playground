@@ -1,5 +1,2 @@
 beats-playground
 build
-
-# It's too big to keep the generated file committed.
-ui_assets.go

@@ -1,4 +1,4 @@
-VERSION ?= master
+VERSION ?= dev
 LICENSE := ASL2-Short
 
 .PHONY: build
