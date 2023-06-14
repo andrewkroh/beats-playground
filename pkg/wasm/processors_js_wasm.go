@@ -13,6 +13,7 @@ import (
 	// Register processors.
 	_ "github.com/elastic/beats/v7/libbeat/processors/actions"
 	_ "github.com/elastic/beats/v7/libbeat/processors/add_cloud_metadata"
+	_ "github.com/elastic/beats/v7/libbeat/processors/add_formatted_index"
 	_ "github.com/elastic/beats/v7/libbeat/processors/add_host_metadata"
 	_ "github.com/elastic/beats/v7/libbeat/processors/add_id"
 	_ "github.com/elastic/beats/v7/libbeat/processors/add_locale"
