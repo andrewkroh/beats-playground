@@ -2,7 +2,7 @@ VERSION ?= master
 LICENSE := ASL2-Short
 
 .PHONY: build
-build: fmt wasm ui-assets
+build: fmt ui
 	go build -ldflags "-X main.version=${VERSION}"
 
 .PHONY: start
@@ -13,11 +13,6 @@ start:
 .PHONY: ui
 ui: wasm
 	cd ui; yarn install && yarn build
-
-.PHONY: ui-assets
-ui-assets: ui go-bindata-assetfs goimports
-	cd ui/build; go-bindata-assetfs -pkg main -o ../../ui_assets.go ./...
-	goimports -l -w ui_assets.go
 
 .PHONY: wasm
 wasm:
@@ -31,19 +26,11 @@ fmt: go-licenser goimports
 
 .PHONY: goimports
 goimports:
-	GO111MODULE=off go get golang.org/x/tools/cmd/goimports
+	go install golang.org/x/tools/cmd/goimports@latest
 
 .PHONY: go-licenser
 go-licenser:
-	GO111MODULE=off go get github.com/elastic/go-licenser
-
-.PHONY: go-bindata-assetfs
-go-bindata-assetfs: go-bindata
-	GO111MODULE=off go get github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs
-
-.PHONY: go-bindata
-go-bindata:
-	GO111MODULE=off go get github.com/go-bindata/go-bindata/go-bindata
+	go install github.com/elastic/go-licenser@latest
 
 .PHONY: gh-pages
 gh-pages: wasm
