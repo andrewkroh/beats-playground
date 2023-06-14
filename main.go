@@ -5,14 +5,18 @@
 package main
 
 import (
+	"embed"
 	"flag"
+	"io/fs"
 	"log"
 	"net/http"
 	"os"
 
-	assetfs "github.com/elazarl/go-bindata-assetfs"
 	"github.com/gorilla/handlers"
 )
+
+//go:embed ui/build/*
+var uiAssets embed.FS
 
 var (
 	bindAddress string
@@ -34,8 +38,14 @@ func main() {
 	}
 	log.Printf("Listening at: http://%s/", bindAddress)
 
+	// Trim ui/build prefix from the FS.
+	uiAssetsRoot, err := fs.Sub(uiAssets, "ui/build")
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	mux := http.NewServeMux()
-	mux.Handle("/", http.FileServer(&assetfs.AssetFS{Asset: Asset, AssetDir: AssetDir, Prefix: ""}))
+	mux.Handle("/", http.FileServer(http.FS(uiAssetsRoot)))
 
 	h := handlers.CompressHandler(mux)
 	h = handlers.CombinedLoggingHandler(os.Stdout, h)
