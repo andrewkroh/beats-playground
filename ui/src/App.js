@@ -167,7 +167,7 @@ export default class BeatsPlayground extends Component {
                     <EuiPageHeader>
                         <EuiPageHeaderSection>
                             <EuiTitle size="l">
-                                <h1>Beats Playground</h1>
+                                <EuiLink href="https://github.com/andrewkroh/beats-playground" target="_blank" external={false}><h1>Beats Playground</h1></EuiLink>
                             </EuiTitle>
                         </EuiPageHeaderSection>
                     </EuiPageHeader>
