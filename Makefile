@@ -16,7 +16,7 @@ ui: wasm
 
 .PHONY: wasm
 wasm:
-	GOOS=js GOARCH=wasm go build -o ui/public/processors.wasm -ldflags "-X main.version=${VERSION}" ./pkg/wasm
+	GOOS=js GOARCH=wasm go build -o ui/public/processors.wasm -ldflags "-X main.version=${VERSION}" ./internal/wasm
 	cp "$(shell go env GOROOT)/misc/wasm/wasm_exec.js" ui/public/
 
 .PHONY: fmt
