@@ -8,6 +8,8 @@ on:
 jobs:
   upload:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: checkout
         uses: actions/checkout@v3
@@ -30,9 +32,7 @@ jobs:
           node-version: '12'
 
       - name: install gox
-        env:
-          GO111MODULE: off
-        run: go get github.com/mitchellh/gox
+        run: go install github.com/mitchellh/gox@latest
 
       - name: build
         run: VERSION=${{ steps.release_version.outputs.tag }} make build
@@ -45,34 +45,13 @@ jobs:
           gox -ldflags '-X main.version=${{ steps.release_version.outputs.tag }}' \
               -output='build/bin/{{.Dir}}-{{.OS}}-{{.Arch}}' \
               -os='windows linux darwin freebsd' \
-              -arch='amd64 386 arm arm64' \
-              -osarch='!darwin/386 !darwin/arm !darwin/arm64' .
+              -arch='amd64 arm64'
 
-      - name: create draft release
-        id: create_release
-        uses: actions/create-release@v1
+      - name: release
+        uses: softprops/action-gh-release@v1
+        with:
+          draft: true
+          files: build/bin/*
+          generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
-          draft: true
-
-      - name: upload artifacts
-        uses: actions/github-script@v3
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const fs = require('fs').promises;
-            const release_id = '${{ steps.create_release.outputs.id }}';
-            for (let file of await fs.readdir('build/bin')) {
-              console.log('Uploading', file);
-
-              await github.repos.uploadReleaseAsset({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                release_id: release_id,
-                name: file,
-                data: await fs.readFile(`build/bin/${file}`)
-              });
-            }
