@@ -19,6 +19,7 @@ import (
 	_ "github.com/elastic/beats/v7/libbeat/processors/add_locale"
 	_ "github.com/elastic/beats/v7/libbeat/processors/add_observer_metadata"
 	_ "github.com/elastic/beats/v7/libbeat/processors/add_process_metadata"
+	_ "github.com/elastic/beats/v7/libbeat/processors/cache"
 	_ "github.com/elastic/beats/v7/libbeat/processors/communityid"
 	_ "github.com/elastic/beats/v7/libbeat/processors/convert"
 	_ "github.com/elastic/beats/v7/libbeat/processors/decode_csv_fields"
