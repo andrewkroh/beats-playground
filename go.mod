@@ -1,6 +1,6 @@
 module github.com/andrewkroh/beats-playground
 
-go 1.23
+go 1.24
 
 require (
 	github.com/elastic/beats/v7 v7.0.0-alpha2.0.20200805104247-2ee3f8392417
