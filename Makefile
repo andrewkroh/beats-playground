@@ -17,7 +17,7 @@ ui: wasm
 .PHONY: wasm
 wasm:
 	GOOS=js GOARCH=wasm go build -o ui/public/processors.wasm -ldflags "-X main.version=${VERSION}" ./internal/wasm
-	cp "$(shell go env GOROOT)/misc/wasm/wasm_exec.js" ui/public/
+	cp "$(shell go env GOROOT)/lib/wasm/wasm_exec.js" ui/public/
 
 .PHONY: fmt
 fmt: go-licenser goimports
