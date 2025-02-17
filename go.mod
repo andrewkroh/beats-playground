@@ -5,7 +5,7 @@ go 1.24
 require (
 	github.com/elastic/beats/v7 v7.0.0-alpha2.0.20200805104247-2ee3f8392417
 	github.com/gorilla/handlers v1.5.2
-	github.com/stretchr/testify v1.9.0
+	github.com/stretchr/testify v1.10.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
