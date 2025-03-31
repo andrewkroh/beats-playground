@@ -27,7 +27,7 @@ require (
 	github.com/dop251/goja_nodejs v0.0.0-20200706082813-b2775b86b9e0 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/elastic/elastic-agent-client/v7 v7.17.2 // indirect
-	github.com/elastic/elastic-agent-libs v0.18.12
+	github.com/elastic/elastic-agent-libs v0.18.13-0.20250331194123-464fb48f12d3
 	github.com/elastic/elastic-agent-system-metrics v0.11.10 // indirect
 	github.com/elastic/go-structform v0.0.12 // indirect
 	github.com/elastic/go-sysinfo v1.15.3 // indirect
@@ -74,7 +74,4 @@ require (
 	kernel.org/pub/linux/libs/security/libcap/cap v1.2.75 // indirect
 )
 
-replace (
-	github.com/dop251/goja => github.com/elastic/goja v0.0.0-20190128172624-dd2ac4456e20
-	github.com/elastic/elastic-agent-libs => github.com/andrewkroh/elastic-agent-libs v0.0.0-20250331184632-2f30371624f0
-)
+replace github.com/dop251/goja => github.com/elastic/goja v0.0.0-20190128172624-dd2ac4456e20
