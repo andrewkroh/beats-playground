@@ -13,8 +13,9 @@ binary that is loaded by the browser. All processing happens in the browser so
 none of your sample/test logs ever leave the browser.
 
 Because of browser limitations, processors that require OS resources
-(filesystem, sockets) are not included (e.g. `dns`, `translate_sid`,
-`rate_limit`, `add_docker_metdata`).
+(filesystem, sockets) are not included (e.g. `add_cloud_metadata`,
+`add_docker_metdata`, `add_host_metadata`, `add_process_metadata`, `dns`,
+`rate_limit`, `translate_sid`).
 
 It will load configurations and sample logs from URLs if you set the appropriate
 query parameters in the URL fragment (aka hash). It reads `load_processors`
