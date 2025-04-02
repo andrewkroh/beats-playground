@@ -10,6 +10,9 @@ import (
 
 	"github.com/andrewkroh/beats-playground/internal/api"
 
+	"github.com/elastic/beats/v7/x-pack/filebeat/processors/aws_vpcflow"
+	"github.com/elastic/beats/v7/x-pack/filebeat/processors/decode_cef"
+
 	// Register processors.
 	_ "github.com/elastic/beats/v7/libbeat/processors/actions"
 	_ "github.com/elastic/beats/v7/libbeat/processors/add_formatted_index"
@@ -32,9 +35,12 @@ import (
 	_ "github.com/elastic/beats/v7/libbeat/processors/syslog"
 	_ "github.com/elastic/beats/v7/libbeat/processors/timestamp"
 	_ "github.com/elastic/beats/v7/libbeat/processors/urldecode"
-	_ "github.com/elastic/beats/v7/x-pack/filebeat/processors/aws_vpcflow"
-	_ "github.com/elastic/beats/v7/x-pack/filebeat/processors/decode_cef"
 )
+
+func init() {
+	decode_cef.InitializeModule()
+	aws_vpcflow.InitializeModule()
+}
 
 var version string
 
