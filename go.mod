@@ -1,6 +1,6 @@
 module github.com/andrewkroh/beats-playground
 
-go 1.24.1
+go 1.24.0
 
 toolchain go1.24.4
 
