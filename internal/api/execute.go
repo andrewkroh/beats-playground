@@ -17,6 +17,7 @@ import (
 	"github.com/elastic/beats/v7/libbeat/common"
 	"github.com/elastic/beats/v7/libbeat/processors"
 	"github.com/elastic/elastic-agent-libs/config"
+	"github.com/elastic/elastic-agent-libs/logp"
 	"github.com/elastic/elastic-agent-libs/mapstr"
 )
 
@@ -136,7 +137,7 @@ func (req ExecuteRequest) buildProcessors() (*processors.Processors, error) {
 		return nil, err
 	}
 
-	procs, err := processors.New(pluginConfig)
+	procs, err := processors.New(pluginConfig, logp.L())
 	if err != nil {
 		return nil, err
 	}
