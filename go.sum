@@ -61,8 +61,8 @@ github.com/elastic/beats/v7 v7.0.0-alpha2.0.20250916190152-c50e2cc4adfa h1:+iw/o
 github.com/elastic/beats/v7 v7.0.0-alpha2.0.20250916190152-c50e2cc4adfa/go.mod h1:F7DG4+RuHE5sVtqzk2swGBsc8+W2LH24V1nEhAHXEyY=
 github.com/elastic/elastic-agent-client/v7 v7.17.2 h1:Cl2TeABqWZgW40t5fchGWT/sRk4MDDLWA0d8iHHOxLA=
 github.com/elastic/elastic-agent-client/v7 v7.17.2/go.mod h1:5irRFqp6HLqtu1S+OeY0jg8x7K6PLL+DW+PwVk1vJnk=
-github.com/elastic/elastic-agent-libs v0.24.2 h1:BM86jemZV/a2qL2DsQO+tNfGroh/9GzZYAFU7yMiSZU=
-github.com/elastic/elastic-agent-libs v0.24.2/go.mod h1:o/iXtbHYaojpG4BOY7Z3hFMQAgEoqq2owO17JPGpf3A=
+github.com/elastic/elastic-agent-libs v0.25.1 h1:PnLx7vidULw+Mx3PMQgf/mZ+yiGELPqn/Lx5KV3fAh4=
+github.com/elastic/elastic-agent-libs v0.25.1/go.mod h1:o/iXtbHYaojpG4BOY7Z3hFMQAgEoqq2owO17JPGpf3A=
 github.com/elastic/elastic-agent-system-metrics v0.13.2 h1:R4ogKHESuWhWTtopnw/aHnBxxSZbxd7KHV4GefdwT2M=
 github.com/elastic/elastic-agent-system-metrics v0.13.2/go.mod h1:ezM1kzDUT+vWXFh5oK8QXB/AEB0UoLWqWA8rkRicFFo=
 github.com/elastic/go-structform v0.0.12 h1:HXpzlAKyej8T7LobqKDThUw7BMhwV6Db24VwxNtgxCs=
