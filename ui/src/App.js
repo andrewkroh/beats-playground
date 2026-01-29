@@ -89,6 +89,27 @@ function getShareParam() {
     return null;
 }
 
+/**
+ * Recursively sorts object keys alphabetically for deterministic JSON output.
+ * Arrays are preserved with their elements sorted if they contain objects.
+ */
+function sortObjectKeys(obj) {
+    if (obj === null || typeof obj !== 'object') {
+        return obj;
+    }
+
+    if (Array.isArray(obj)) {
+        return obj.map(sortObjectKeys);
+    }
+
+    return Object.keys(obj)
+        .sort()
+        .reduce((sorted, key) => {
+            sorted[key] = sortObjectKeys(obj[key]);
+            return sorted;
+        }, {});
+}
+
 export default class BeatsPlayground extends Component {
     constructor(props) {
         super(props);
@@ -204,7 +225,7 @@ export default class BeatsPlayground extends Component {
             console.log("Error: ", JSON.stringify(res))
             this.setState({
                 hasError: true,
-                output: JSON.stringify(res, null, 2)
+                output: JSON.stringify(sortObjectKeys(res), null, 2)
             });
             return;
         }
@@ -218,7 +239,7 @@ export default class BeatsPlayground extends Component {
             return x.event;
         });
         this.setState({
-            output: JSON.stringify(events, null, 2)
+            output: JSON.stringify(sortObjectKeys(events), null, 2)
         });
     };
 
