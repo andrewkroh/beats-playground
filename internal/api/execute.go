@@ -19,6 +19,7 @@ import (
 	"github.com/elastic/elastic-agent-libs/config"
 	"github.com/elastic/elastic-agent-libs/logp"
 	"github.com/elastic/elastic-agent-libs/mapstr"
+	"github.com/elastic/elastic-agent-libs/paths"
 )
 
 type ExecuteRequest struct {
@@ -140,6 +141,16 @@ func (req ExecuteRequest) buildProcessors() (*processors.Processors, error) {
 	procs, err := processors.New(pluginConfig, logp.L())
 	if err != nil {
 		return nil, err
+	}
+
+	// Call SetPaths on processors that require it (e.g., the script processor).
+	beatPaths := &paths.Path{}
+	for _, p := range procs.List {
+		if pathSetter, ok := p.(processors.PathSetter); ok {
+			if err := pathSetter.SetPaths(beatPaths); err != nil {
+				return nil, err
+			}
+		}
 	}
 
 	return procs, nil
