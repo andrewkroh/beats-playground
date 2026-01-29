@@ -54,11 +54,17 @@
     flex: 1;
     min-height: 120px;
     resize: none;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
 }
 
 .beatsPlaygroundPage .euiFlexGroup--main .euiCodeEditorWrapper {
     flex: 1;
     min-height: 300px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+}
+
+.beatsPlaygroundPage .euiFlexGroup--main .euiCodeEditorWrapper * {
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
 }
 
 .beatsPlaygroundFooter {
