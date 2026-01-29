@@ -10,6 +10,7 @@ import {
     EuiFlexItem,
     EuiFormRow,
     EuiGlobalToastList,
+    EuiIcon,
     EuiLink,
     EuiPage,
     EuiPageBody,
@@ -290,7 +291,7 @@ export default class BeatsPlayground extends Component {
                     <EuiPageContent>
                             <EuiPageContentBody>
 
-                                <EuiFlexGroup>
+                                <EuiFlexGroup className="euiFlexGroup--main">
                                     <EuiFlexItem>
 
                                         <EuiFormRow
@@ -353,6 +354,16 @@ export default class BeatsPlayground extends Component {
                         </EuiPageContentBody>
                     </EuiPageContent>
                 </EuiPageBody>
+                <footer className="beatsPlaygroundFooter">
+                    <a
+                        href="https://github.com/andrewkroh/beats-playground"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="View source on GitHub"
+                    >
+                        <EuiIcon type="logoGithub" size="l" />
+                    </a>
+                </footer>
                 <EuiGlobalToastList
                     toasts={this.state.toasts}
                     dismissToast={this.removeToast}
