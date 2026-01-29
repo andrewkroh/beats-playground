@@ -14,7 +14,8 @@
     "pako": "^2.1.0",
     "react": "^16.12",
     "react-dom": "^16.12",
-    "react-scripts": "4.0.3"
+    "react-scripts": "4.0.3",
+    "yaml": "^2.8.2"
   },
   "scripts": {
     "start": "react-scripts start",
