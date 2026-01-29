@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import pako from 'pako';
+import { parse as parseYaml, stringify as stringifyYaml } from 'yaml';
 import './App.css';
 
 import {
     EuiButton,
+    EuiButtonIcon,
     EuiCodeEditor,
     EuiFlexGroup,
     EuiFlexItem,
@@ -129,6 +131,7 @@ export default class BeatsPlayground extends Component {
             logs: savedLogs,
             output: '',
             hasError: false,
+            formatError: null,
             toasts: [],
         };
     }
@@ -216,6 +219,18 @@ export default class BeatsPlayground extends Component {
             [e.target.name]: e.target.value,
         });
         localStorage.setItem(e.target.name, e.target.value)
+    };
+
+    formatProcessors = () => {
+        try {
+            const parsed = parseYaml(this.state.processors);
+            const formatted = stringifyYaml(parsed, { indent: 2 });
+            this.setState({ processors: formatted, formatError: null });
+            localStorage.setItem('processors', formatted);
+        } catch (e) {
+            this.setState({ formatError: e.message });
+            setTimeout(() => this.setState({ formatError: null }), 3000);
+        }
     };
 
     onExecute = (e) => {
@@ -327,14 +342,28 @@ export default class BeatsPlayground extends Component {
                                                         Documentation</EuiLink>
                                                 </EuiText>
                                             }>
-                                            <EuiTextArea
-                                                name="processors"
-                                                placeholder="- dissect: ..."
-                                                value={this.state.processors}
-                                                isInvalid={this.state.hasError}
-                                                onChange={this.onChange}
-                                                fullWidth
-                                            />
+                                            <div className="yaml-editor-container">
+                                                <EuiTextArea
+                                                    name="processors"
+                                                    placeholder="- dissect: ..."
+                                                    value={this.state.processors}
+                                                    isInvalid={this.state.hasError}
+                                                    onChange={this.onChange}
+                                                    fullWidth
+                                                />
+                                                <EuiToolTip
+                                                    position="left"
+                                                    content={this.state.formatError || "Format YAML"}
+                                                >
+                                                    <EuiButtonIcon
+                                                        className="yaml-format-button"
+                                                        iconType="brush"
+                                                        aria-label="Format YAML"
+                                                        onClick={this.formatProcessors}
+                                                        color={this.state.formatError ? "danger" : "text"}
+                                                    />
+                                                </EuiToolTip>
+                                            </div>
                                         </EuiFormRow>
 
                                         <EuiFormRow

@@ -29,13 +29,15 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: '12'
+          node-version: '22'
 
       - name: install gox
         run: go install github.com/mitchellh/gox@latest
 
       - name: build
         run: VERSION=${{ steps.release_version.outputs.tag }} make build
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
 
       - name: cross build
         shell: bash
