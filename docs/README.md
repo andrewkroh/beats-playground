@@ -17,10 +17,35 @@ Because of browser limitations, processors that require OS resources
 `add_docker_metdata`, `add_host_metadata`, `add_process_metadata`, `dns`,
 `rate_limit`, `translate_sid`).
 
-It will load configurations and sample logs from URLs if you set the appropriate
-query parameters in the URL fragment (aka hash). It reads `load_processors`
-and `load_logs` then loads the content from those URLs. This can be used to share
-examples. The format is:
+### Sharing via Share Button
+
+Click the **Share** button to encode the current processor configuration and
+sample logs into the URL. The URL is automatically copied to your clipboard
+and can be shared with others. Note that the data is stored unencrypted in the
+URL.
+
+The state is encoded as a JSON object with the following keys:
+- `p` - processors (YAML string)
+- `l` - logs (text string)
+
+This JSON is compressed with gzip and then base64 encoded. The URL format is:
+
+`https://andrewkroh.github.io/beats-playground/#s=ENCODED_STATE`
+
+To decode a shared URL, you can use
+[CyberChef](https://gchq.github.io/CyberChef/#recipe=URL_Decode\(true\)From_Base64\('A-Za-z0-9%2B/%3D',true,false\)Gunzip\(\))
+or the command line:
+
+```bash
+pbpaste | base64 -D | gunzip
+```
+
+### Loading from External URLs
+
+Alternatively, you can load configurations and sample logs from external URLs
+by setting query parameters in the URL fragment (aka hash). It reads
+`load_processors` and `load_logs` then loads the content from those URLs. The
+format is:
 
 `http://localhost:8084/#?load_processors=PROCESSORS_URL&load_logs=LOGS_URL`
 
