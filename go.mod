@@ -4,6 +4,7 @@ go 1.27.0
 
 require (
 	github.com/elastic/beats/v7 v7.0.0-alpha2.0.20251216084334-b95cc76490c9
+	github.com/elastic/elastic-agent-libs v0.32.1
 	github.com/gorilla/handlers v1.5.2
 	github.com/stretchr/testify v1.11.1
 	gopkg.in/yaml.v3 v3.0.1
@@ -20,7 +21,6 @@ require (
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/ebitengine/purego v0.9.1 // indirect
 	github.com/elastic/elastic-agent-client/v7 v7.17.2 // indirect
-	github.com/elastic/elastic-agent-libs v0.32.1
 	github.com/elastic/elastic-agent-system-metrics v0.13.6 // indirect
 	github.com/elastic/go-structform v0.0.12 // indirect
 	github.com/elastic/go-sysinfo v1.15.4 // indirect
