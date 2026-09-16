@@ -1,5 +1,10 @@
 # Beats Playground
 
+> [!WARNING]
+> This project is no longer actively maintained. It's left running for
+> reference, but the embedded elastic/beats processor code will not
+> receive further updates and may grow stale. Use at your own discretion.
+
 Demo: https://andrewkroh.github.io/beats-playground/
 
 It's a web UI to play with Elastic Beats processor configurations.
