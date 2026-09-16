@@ -90,6 +90,11 @@
     opacity: 1;
 }
 
+.beatsPlaygroundMaintenanceBanner {
+    border-radius: 0;
+    flex-shrink: 0;
+}
+
 .beatsPlaygroundFooter {
     padding: 16px;
     text-align: center;

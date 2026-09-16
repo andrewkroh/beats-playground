@@ -7,6 +7,7 @@ import './App.css';
 import {
     EuiButton,
     EuiButtonIcon,
+    EuiCallOut,
     EuiCodeEditor,
     EuiFlexGroup,
     EuiFlexItem,
@@ -303,6 +304,22 @@ export default class BeatsPlayground extends Component {
         return (
             <EuiPage className="beatsPlaygroundPage">
                 <EuiPageBody>
+                    <EuiCallOut
+                        className="beatsPlaygroundMaintenanceBanner"
+                        title="This project is no longer actively maintained."
+                        color="warning"
+                        iconType="alert"
+                        size="s"
+                    >
+                        <p>
+                            It may still be useful, but the embedded elastic/beats processors
+                            may fall out of date over time. See the{' '}
+                            <EuiLink
+                                href="https://github.com/andrewkroh/beats-playground#readme"
+                                target="_blank" rel="noopener noreferrer">README</EuiLink>{' '}
+                            for details.
+                        </p>
+                    </EuiCallOut>
                     <EuiPageHeader>
                         <EuiPageHeaderSection>
                             <EuiTitle size="l">
