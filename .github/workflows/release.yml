@@ -27,7 +27,7 @@ jobs:
         run: |
           echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
 
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           node-version: '22'
 
